@@ -4,7 +4,12 @@ packages:
   - packages/*
   - apps/**
 
-
 scripts:
   get : 
       run : "melos bootstrap"
+      
+  build:clean:
+    run: melos clean &&
+         melos bootstrap 
+     
+    description: Run all build targets from a clean state.   

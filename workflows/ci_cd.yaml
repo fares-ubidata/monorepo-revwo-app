@@ -1,9 +1,0 @@
-name : CI/CD
-on: push
-
-jobs : 
-  flutter_test:
-    name : Run flutter test and analyze
-    runs-on: windows-latest
-    
-    
