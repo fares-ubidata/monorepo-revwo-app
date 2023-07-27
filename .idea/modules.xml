@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/packages\revwo\melos_revwo.iml" filepath="$PROJECT_DIR$/packages\revwo\melos_revwo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/packages\revwo_delievery\melos_revwo_delievery.iml" filepath="$PROJECT_DIR$/packages\revwo_delievery\melos_revwo_delievery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/melos_monorepo_revwo_app.iml" filepath="$PROJECT_DIR$/melos_monorepo_revwo_app.iml" />
+    </modules>
+  </component>
+</project>

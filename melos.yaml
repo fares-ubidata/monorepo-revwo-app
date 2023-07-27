@@ -1,0 +1,10 @@
+name : monorepo_revwo_app
+
+packages:
+  - packages/*
+  - apps/**
+
+
+scripts:
+  get : 
+      run : "melos bootstrap"
