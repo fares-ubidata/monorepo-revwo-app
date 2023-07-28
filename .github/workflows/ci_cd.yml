@@ -1,6 +1,7 @@
 name : CI/CD
 on: push
 
+
 jobs : 
   flutter_build:
     name: Run Flutter build clean
