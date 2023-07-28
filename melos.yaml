@@ -13,3 +13,15 @@ scripts:
          melos bootstrap 
      
     description: Run all build targets from a clean state.   
+    
+
+  test:
+    run: melos run test:one --no-select
+    description: Run all tests on all packages in this project.
+
+  test:one:
+    run: melos exec -c 1 --fail-fast -- flutter test --no-pub 
+    packageFilters:
+      flutter: true
+      dirExists:
+        - test  
