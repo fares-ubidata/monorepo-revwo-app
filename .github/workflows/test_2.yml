@@ -1,0 +1,19 @@
+name : test_2
+on: push
+
+jobs:
+  setup:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+      - run: dart pub global activate melos 
+      - run: echo "DART_PATH=$HOME/.dart_tool" >> $GITHUB_ENV
+
+  test :
+    runs-on: windows-latest
+    needs: setup
+    env:
+      DART_PATH: ${{ needs.setup.outputs.DART_PATH }}
+    steps :
+     - run: $DART_PATH/dart --version
