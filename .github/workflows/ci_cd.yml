@@ -30,4 +30,4 @@ jobs :
   test_job :
     runs-on: windows-latest
     steps :
-      - run : echo "dart ../../ci_cd_script.dart"    
+      - run :  dart ../../ci_cd_script.dart
