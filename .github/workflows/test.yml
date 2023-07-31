@@ -6,20 +6,19 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: dart-lang/setup-dart@v1
-      - run: dart pub global activate melos
-      - name: Cache Dart dependencies
-        uses: actions/cache@v2
+      # - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v2
         with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pub- 
+          flutter-version: "3.0.3"
+          channel: 'stable'
+          cache: true   
+      - run: flutter pub global activate melos
+       
 
   test :
     runs-on: windows-latest
     needs: setup
     steps :
-      - run :  dart --version
+      - run :  flutter --version
 
         
