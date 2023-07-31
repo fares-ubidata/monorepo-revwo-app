@@ -2,9 +2,11 @@ name: CI/CD
 on: push
 
 jobs:
-  setup_melos:
-    name: Activate Melos
+  setup_dependencies:
+    name: Setup Dependencies
     runs-on: windows-latest
+    outputs:
+      cache-key: ${{ steps.cache-keys.outputs.key }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v2
@@ -15,18 +17,19 @@ jobs:
             ${{ runner.os }}-pub-cache-
       - uses: subosito/flutter-action@v2
       - run: flutter pub global activate melos
-      
+      - id: cache-keys
+        run: echo "key=${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}" > cache-key.txt
+
   flutter_build:
     name: Run Flutter build clean
     runs-on: windows-latest
-    needs: setup_melos
+    needs: setup_dependencies
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v2
         with:
           path: ~/.pub-cache
-          key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}
+          key: ${{ needs.setup_dependencies.outputs.cache-key }}
           restore-keys: |
             ${{ runner.os }}-pub-cache-
-      - uses: subosito/flutter-action@v2
-      - run: flutter pub global run melos build:clean      
+      - run: flutter pub global run melos build:clean
