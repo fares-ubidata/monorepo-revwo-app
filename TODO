@@ -1,0 +1,23 @@
+name : test_2
+on: push
+on_branch: develop
+
+variables:
+  filter: "hello World"
+
+# cache:
+#   - dependencies
+
+jobs:
+  setup:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dart-lang/setup-dart@v1
+      - run: dart pub global activate melos 
+      - run: dart --version
+      - run: dart ci_cd_script.dart
+      - run: echo variables.filter
+
+  # build:
+    # needs: setup
