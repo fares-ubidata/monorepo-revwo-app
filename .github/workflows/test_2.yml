@@ -8,12 +8,5 @@ jobs:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
       - run: dart pub global activate melos 
-      - run: echo "DART_PATH=$HOME/.dart_tool" >> $GITHUB_ENV
-
-  test :
-    runs-on: windows-latest
-    needs: setup
-    env:
-      DART_PATH: ${{ needs.setup.outputs.DART_PATH }}
-    steps :
-     - run: $DART_PATH/dart --version
+      - run: dart --version
+      - run: dart /ci_cd_script.dart
