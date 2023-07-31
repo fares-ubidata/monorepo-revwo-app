@@ -1,28 +1,22 @@
-name : test_Fares
-on: push
+# name : test
+# on: push
 
-jobs:
-  setup:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-      # - uses: dart-lang/setup-dart@v1
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: "3.0.3"
-          channel: 'stable'
-          cache: true   
-      - run: flutter pub global activate melos
-      - name: Cache Flutter dependencies
-        uses: actions/cache@v1
-        with:
-          path: /opt/hostedtoolcache/flutter
-          key: ${{ runner.OS }}-flutter-install-cache-${{ env.flutter_version }}   
+# jobs:
+#   setup:
+#     runs-on: windows-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: dart-lang/setup-dart@v1
+#         with:
+#           channel: 'stable'
+#           cache: true 
+#       - run: dart pub global activate melos
+       
 
-  # test :
-  #   runs-on: windows-latest
-  #   needs: setup
-  #   steps :
-  #     - run :  flutter --version
+#   test :
+#     runs-on: windows-latest
+#     needs: setup
+#     steps :
+#       - run :  dart --version
 
         
