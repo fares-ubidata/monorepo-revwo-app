@@ -1,7 +1,6 @@
 name : CI/CD
 on: push
 
-
 jobs : 
   flutter_build:
     name: Run Flutter build clean
@@ -9,6 +8,7 @@ jobs :
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
+        
       - run: flutter pub global activate melos && flutter pub global run melos build:clean
 
   flutter_test:
@@ -16,6 +16,12 @@ jobs :
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/cache@v2
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-cache-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: | 
+            ${{ runner.os }}-pub-cache-       
       - uses: actions/setup-java@v1
         with:
           java-version: 'x.x'
@@ -26,9 +32,5 @@ jobs :
       - run: dart format . 
       - run: melos test     
 
-  test_job :
-    runs-on: windows-latest
-    steps :
-      - run : echo "Test Run job"    
     
     
