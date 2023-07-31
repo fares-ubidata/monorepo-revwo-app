@@ -9,7 +9,6 @@ jobs :
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
-      - run: echo "${RUNNER_TEMP}/flutter/bin" ${RUNNER_TEMP}/flutter/.pub-cache/bin  >> $GITHUB_PATH
       - run: flutter pub global activate melos && flutter pub global run melos build:clean
 
   flutter_test:
