@@ -1,11 +1,18 @@
-name : CI/CD
+name : test
 on: push
 
 jobs:
-  build:
+  setup:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
       - uses: dart-lang/setup-dart@v1
       - run: dart pub global activate melos 
-      - run : melos ls
+
+  test :
+    runs-on: windows-latest
+    needs: setup
+    steps :
+      - run :  dart ../../ci_cd_script.dart
+
+        
