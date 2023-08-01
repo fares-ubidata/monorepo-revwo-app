@@ -1,4 +1,4 @@
-name : test_2
+name : CI/CD
 on: push
 
 jobs:
@@ -9,4 +9,10 @@ jobs:
       - uses: dart-lang/setup-dart@v1
       - run: dart pub global activate melos 
       - run: dart --version
-      - run: dart ci_cd_script.dart
+      # - run: dart ci_cd_script.dart
+
+  test:
+    runs-on: windows-latest
+    needs: setup
+    steps: 
+      - run: dart --version
