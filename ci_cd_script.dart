@@ -7,4 +7,4 @@ void main() {
   print(result.stdout);
   print(result.stderr);
   print(result.exitCode);
-}
+ }
