@@ -8,8 +8,3 @@ jobs:
          - run: echo username {{var.USERNAME}} 
          - run: echo ubi token {{var.UBITOKEN}} 
          - run: echo token {{var.TOKEN}} 
-      // - uses: actions/checkout@v3
-      // - uses: dart-lang/setup-dart@v1
-      // - run: dart pub global activate melos 
-      // - run: dart --version
-      // - run: dart ci_cd_script.dart
