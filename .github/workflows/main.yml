@@ -5,6 +5,6 @@ jobs:
   setup:
     runs-on: windows-latest
     steps:
-         - run: echo username ${{var.USERNAME}} 
-         - run: echo ubi token ${{var.UBITOKEN}} 
-         - run: echo token ${{var.TOKEN}} 
+         - run: echo username ${{vars.USERNAME}} 
+         - run: echo ubi token ${{vars.UBITOKEN}} 
+         - run: echo token ${{vars.TOKEN}} 
