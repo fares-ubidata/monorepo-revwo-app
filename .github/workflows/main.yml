@@ -1,0 +1,10 @@
+name : Variables
+on: push
+
+jobs:
+  setup:
+    runs-on: windows-latest
+    steps:
+         - run: echo username {{var.USERNAME}} 
+         - run: echo ubi token {{var.UBITOKEN}} 
+         - run: echo token {{var.TOKEN}} 
