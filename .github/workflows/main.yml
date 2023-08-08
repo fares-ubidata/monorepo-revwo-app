@@ -5,6 +5,6 @@ jobs:
   setup:
     runs-on: windows-latest
     steps:
-         - run: echo username ${{vars.USERNAME}} 
-         - run: echo ubi token ${{vars.UBITOKEN}} 
-         - run: echo token ${{vars.TOKEN}} 
+         - run: echo username ${{secrets[NEXUS_PASSWORD]}} 
+         - run: echo username ${{secrets[env.NEXUS_PASSWORD]}} 
+
