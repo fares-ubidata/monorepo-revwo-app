@@ -5,5 +5,5 @@ jobs:
   setup:
     runs-on: windows-latest
     steps:
-         - run: echo username ${{secrets[env.NEXUS_PASSWORD]}} 
+         - run: curl ${{secrets[env.nexus_url]}}/repository/flutter-apk 
 
