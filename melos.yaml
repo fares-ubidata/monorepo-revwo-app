@@ -1,19 +1,125 @@
-name: monorepo_revwo_app
+name: flutter_monorepo_app
+
+ide:
+  intellij: false
 
 packages:
-  - packages/*
   - apps/**
+  - packages/**
+
+command:
+  clean:
+    hooks:
+      post: melos exec --flutter --concurrency=3 -- "flutter clean"
+  bootstrap:
+    # It seems so that running "pub get" in parallel has some issues (like
+    # https://github.com/dart-lang/pub/issues/3404). Disabling this feature
+    # makes the CI much more stable.
+    runPubGetInParallel: false
+  version:
+    branch: master
+    workspaceChangelog: true
+    linkToCommits: false
 
 scripts:
+  # FIXING TASKS
+  analyze:
+    run: melos exec -c 1 -- "flutter analyze ."
+    description: Analyze all packages in this project.
+    packageFilters:
+      dirExists:
+        - lib
+
+  fix:dart:
+    run: melos exec -c 1 -- "dart fix --apply"
+    description: Analysis issues identified by dart analyze that have associated automated fixes (sometimes called quick-fixes or code actions). and outdated API usages when updating to newer versions of Dart and Flutter.
+
+  # CLEANING TASKS
+  clean:deep:
+    run: git clean -x -d -f -q
+    description: Clean things very deeply, can be used to establish "pristine checkout" status.
+
+  # PRE-BUILD TASKS
   get:
-    run: "melos bootstrap"
+    run: melos exec -- flutter pub get
+    packageFilters:
+      dirExists:
+        - lib
 
-  build:clean:
+  watch:
+    run: melos exec -- "flutter packages pub run build_runner watch"
+    description: Watch package files and rebuild on changes.
+    packageFilters:
+      dependsOn:
+        - build_runner
+
+  generate:
+    run: melos exec -- flutter packages pub run build_runner build --delete-conflicting-outputs
+    description: Build all generated files for Flutter packages in this project.
+    packageFilters:
+      dependsOn:
+        - build_runner
+
+  prepare:monorepo:
     run: melos clean &&
-      melos bootstrap
+      melos bootstrap &&
+      melos generate
+    description: Clean all packages in this project.
 
-    description: Run all build targets from a clean state.
+  # BUILDING TASKS
+  build:clean:
+    run: melos run prepare:monorepo &&
+      melos test
 
+  build:apk:qa:
+    run: flutter build apk --flavor QA -t lib/main.dart --debug
+    description: Build one Android app in QA.
+    packageFilters:
+      fileExists: android/build.gradle
+    exec:
+      orderDependents: true
+      failFast: true
+      diff: origin/develop...HEAD
+
+  build:apk:prod:
+    run: flutter build apk --flavor PROD -t lib/main_prod.dart --release
+    description: Build one Android app in PROD.
+    packageFilters:
+      fileExists: android/build.gradle
+    exec:
+      orderDependents: true
+      failFast: true
+      diff: origin/develop...HEAD
+
+  build:aab:qa:
+    run: flutter build appbundle --flavor QA --target lib/main.dart --debug
+    description: Build one Android appBundle in QA.
+    packageFilters:
+      fileExists: android/build.gradle
+    exec:
+      orderDependents: true
+      failFast: true
+
+  build:aab:prod:
+    run: flutter build appbundle --flavor PROD --target lib/main_prod.dart --release
+    description: Build one Android appBundle in PROD.
+    packageFilters:
+      fileExists: android/build.gradle
+    exec:
+      orderDependents: true
+      failFast: true
+
+  build:web:
+    run: flutter build web -t lib/main.dart --base-href "/f/MELOS_PACKAGE_NAME/"
+    description: Build one web app.
+    packageFilters:
+      fileExists: web/index.html
+    exec:
+      orderDependents: true
+      concurrency: 1
+      diff: origin/develop...HEAD
+
+  # TESTING TASKS
   test:
     run: melos run test:one --no-select
     description: Run all tests on all packages in this project.
@@ -24,3 +130,21 @@ scripts:
       flutter: true
       dirExists:
         - test
+
+  # UPDATING TASKS
+  update:
+    run: melos exec -- "flutter pub upgrade --major-versions"
+    description: Update all depenencies to the latest major versions in all packages.
+    packageFilters:
+      flutter: true
+
+  outdated:
+    run: melos exec -- "flutter pub outdated"
+    description: Check for outdated packages.
+    packageFilters:
+      flutter: true
+
+  # NEXUS DEPLOY
+  nexus:deploy:
+    run: nexus_deploy.sh
+    description: Run the test script in all packages.
