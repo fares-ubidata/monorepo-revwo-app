@@ -71,18 +71,9 @@ scripts:
     run: melos run prepare:monorepo &&
       melos test
 
-  build:apk:qa:
-    run: flutter build apk --flavor QA -t lib/main.dart --release
-    description: Build one Android app in QA.
-    packageFilters:
-      fileExists: android/build.gradle
-    exec:
-      orderDependents: true
-      failFast: true
-
-  build:aab:qa:
-    run: flutter build appbundle --flavor QA --target lib/main.dart --release
-    description: Build one Android appBundle in QA.
+  build:apk:
+    run: flutter build apk -t lib/main.dart --release
+    description: Build one Android app.
     packageFilters:
       fileExists: android/build.gradle
     exec:
