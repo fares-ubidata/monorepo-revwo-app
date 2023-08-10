@@ -27,13 +27,13 @@ jobs:
         # melos generate
         
     - name: Build APKs
-      run: melos build:apk:qa
+      run: melos build:apk
       
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
       with:
         name: app-release
-        path: packages/**/build/app/outputs/flutter-apk/app-qa-release.apk
+        path: packages/**/build/app/outputs/flutter-apk/app-release.apk
         
     - name: Set execute permissions for deploy.sh
       run: chmod +x test.sh
