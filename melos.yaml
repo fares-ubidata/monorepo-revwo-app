@@ -72,7 +72,7 @@ scripts:
       melos test
 
   build:apk:qa:
-    run: flutter build apk --flavor QA -t lib/main.dart --debug
+    run: flutter build apk --flavor QA -t lib/main.dart --release
     description: Build one Android app in QA.
     packageFilters:
       fileExists: android/build.gradle
@@ -81,28 +81,9 @@ scripts:
       failFast: true
       diff: origin/develop...HEAD
 
-  build:apk:prod:
-    run: flutter build apk --flavor PROD -t lib/main_prod.dart --release
-    description: Build one Android app in PROD.
-    packageFilters:
-      fileExists: android/build.gradle
-    exec:
-      orderDependents: true
-      failFast: true
-      diff: origin/develop...HEAD
-
   build:aab:qa:
-    run: flutter build appbundle --flavor QA --target lib/main.dart --debug
+    run: flutter build appbundle --flavor QA --target lib/main.dart --release
     description: Build one Android appBundle in QA.
-    packageFilters:
-      fileExists: android/build.gradle
-    exec:
-      orderDependents: true
-      failFast: true
-
-  build:aab:prod:
-    run: flutter build appbundle --flavor PROD --target lib/main_prod.dart --release
-    description: Build one Android appBundle in PROD.
     packageFilters:
       fileExists: android/build.gradle
     exec:
