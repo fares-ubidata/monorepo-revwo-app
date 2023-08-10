@@ -9,7 +9,7 @@ NEXUS_PASSWORD="123456"
 APPS=(
     # "application name;.apk;version" (separator > ;)
     "revwo;packages/revwo/build/app/outputs/flutter-apk/app-qa-release.apk;1.0.0"
-    "revwo_delivery;packages/revwo_delivery/build/app/outputs/flutter-apk/app-qa-release.apk;1.0.0"
+    "food_delivery;packages/food_delivery/build/app/outputs/flutter-apk/app-qa-release.apk;1.0.0"
 )
 
 for app in "${APPS[@]}"; do
