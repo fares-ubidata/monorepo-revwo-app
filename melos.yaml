@@ -79,7 +79,6 @@ scripts:
     exec:
       orderDependents: true
       failFast: true
-      diff: origin/develop...HEAD
 
   build:aab:qa:
     run: flutter build appbundle --flavor QA --target lib/main.dart --release
@@ -98,7 +97,6 @@ scripts:
     exec:
       orderDependents: true
       concurrency: 1
-      diff: origin/develop...HEAD
 
   # TESTING TASKS
   test:
