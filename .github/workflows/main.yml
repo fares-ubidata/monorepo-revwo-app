@@ -16,7 +16,10 @@ jobs:
       uses: subosito/flutter-action@v2
 #       with:
 #         flutter-version: 2.x
-        
+       
+    - name: Install melos
+      run: flutter pub global activate melos
+   
     - name: Install dependencies and generate code
       run: |
         echo "run"
